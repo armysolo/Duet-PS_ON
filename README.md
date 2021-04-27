@@ -1,5 +1,5 @@
 # Duet-PS_ON
-This is purely an optional mod for users that have a RPI as a SBC powered from the Duet.  
+This is purely an optional mod for Duet 2 Wifi or Duet 3 with or without a RPI.  
 
 After upgrading to a Duet 3 and Raspberry Pi I powered the RPI from the Duet and kept the original wiring setup.  
   Hold the power button until the board powers up and sends M80 to PS_ON and ground the SSR.  
