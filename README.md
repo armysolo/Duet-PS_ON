@@ -1,19 +1,21 @@
 # Duet-PS_ON
-This is purely an optional mod for Duet 2 Wifi or Duet 3 with or without a RPI.  
+This is purely an optional mod for Duet 2 Wifi or Duet 3 with or without a RPI. In theory this could work with other boards that use the PS_ON functionality but I have no means to test.  
 
-After upgrading to a Duet 3 and Raspberry Pi I powered the RPI from the Duet and kept the original wiring setup.  
-  Hold the power button until the board powers up and sends M80 to PS_ON and ground the SSR.  
+After upgrading to a Duet 3 and Raspberry Pi, I powered the RPI from the Duet and kept the original wiring setup.  
+  Hold the power button(normally 1-2 seconds) until the board powers up and sends M80 to PS_ON and ground the SSR.  
 
 With a Raspberry Pi 4B I had to hold the power button for about 20 seconds for the Raspberry Pi to boot up before I could let go of the button.  
-For this mod to work you'll to use a separate RPI power supply and remove the 5V -> SBC jumper.  
+For this mod to work you'll have to use a separate RPI power supply and remove the 5V -> SBC jumper.  
 The RPI will always be on unless you manually shut it down.  
+The printer will be in a low power state.  
 The LCD will be on and your printer will be in "Standby" mode.  
+You can power on the Duet by either pressing the button or using the PSU control in DWC.  
 
 # BOM  
 [5v relay board](https://www.amazon.com/dp/B00LW15A4W/ref=cm_sw_em_r_mt_dp_N1P35HN3BCPKBMJH969X)   
 [5V PSU](https://www.amazon.com/dp/B005T6UJBU/ref=cm_sw_em_r_mt_dp_H0TYRGBDHGWBVFF8ZMYS)  
 [Momentary Push Button Switched Wired NO/C](https://www.aliexpress.com/item/4000094832237.html?spm=a2g0s.9042311.0.0.2be14c4daTSuak)  
-Official RPI power supply  
+Official RPI power supply-Not needed if you're not using a RPI  
 
 # Wiring  
 The wiring is pretty straight forward.  
@@ -58,7 +60,7 @@ https://duet3d.dozuki.com/Wiki/Gcode#Section_M581_RepRapFirmware_3_01RC2_and_lat
 In the System directory(same place where config.g is stored) create a trigger file called "trigger2.g".  
 In the trigger file you only need to add  
 `M80           ; Power on `  
-Save trigger2.g.  
+Save trigger2.g file.  
 
 You'll need to add 3 lines to your config.g file.  
 `M950 J1 C"io8.in"`  
