@@ -62,7 +62,7 @@ In the trigger file you only need to add
 `M80           ; Power on `  
 Save trigger2.g file.  
 
-You'll need to add 3 lines to your config.g file.  
+You'll need to add 2 lines to your config.g file.  
 `M950 J1 C"io8.in"`  
 1. M950 = Create GPIO pin  
 2. J1 = Input pin number  
@@ -75,8 +75,19 @@ You'll need to add 3 lines to your config.g file.
 4. S1 = Inactive-to-active (momentary button wired with NO and C)  
 5. R0 = Trigger condition at anytime  
 
-`M582 T2`
-1. M582 = Check External Trigger
-2. T2 = Trigger number assigned in M581
 
-
+Taking it a step farther you can also use the power button to turn the printer on and off by using conditional G code. Quick press will turn the power on, long press will turn the power off. Paste the following into your trigger file:    
+```
+; Script to control power on button
+; in config.g:
+; M950 J1 C"!0.io4.in"			; Create GPIO pin for On button wired NO-must be inverted with !
+; M581 T2 P1 S1 R0		        ; T2-Run Trigger 2; P1-J1; S1-When button pressed; R0-trigger any time
+; Trigger file created for on/off button
+M80								; Power on
+G4 P200							; wait 2ms
+M98 P"config.g"					; run config.g to re-recognize toolboard
+G4 P200							; wait 2ms
+if sensors.gpIn[1].value = 1 	; check if button still pressed
+	M291 P"Power off" S1 T2 	;
+	G4 S1						; give time to let go of the button to prevent accidental power on
+    M81 						; turn off power  
